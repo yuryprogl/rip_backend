@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <main class="container">
+        <h3  class="text-center">Расчет растворимости</h3>
+        <span>Обьем воды: {{ calculation.field }} мл</span>
+        <span>Температура: {{ calculation.field }} ℃</span>
+
+        <h4 class="text-center">Химические соединения</h4>
+        <div class="cards-wrapper d-flex flex-column">
+            {% for element in elements %}
+                <div class="card w-100 mb5">
+                     <div class="row g-0">
+                        <div class="col-md-6 d-flex justify-center">
+                            <img src="{{ element.image }}" />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ element.name }} </h5>
+                                <p class="card-text">Химическая формула: {{ element.formula }} </p>
+                                <div class="form-group">
+                                    <label class="form-label">Концентрация (%)</label>
+                                    <input disabled class="form-control" style="width: 150px" value="{{ element.concentration }}">
+                                </div>
+                                <a href="/elements/{{ element.id }}/" class="btn btn-primary" style="width: 110px">
+                                    Подробнее
+                                </a>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock content %}
