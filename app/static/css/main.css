@@ -82,7 +82,7 @@ body, .wrapper {
 .cards-wrapper .card .card-body {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .cards-wrapper .card .card-body .card-info {
