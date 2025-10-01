@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <main class="container">
+        <h3  class="text-center">Черновой расчет расстворимости</h3>
+         <div class="form-group">
+            <label class="form-label">Обьем (мл)</label>
+            {% if calculation.volume %}
+                <input placeholder="Введите обьем" disabled type="text" class="form-control" style="width: 250px" value="{{ calculation.volume }}">
+            {% else %}
+                <input placeholder="Введите обьем" disabled type="text" class="form-control" style="width: 250px">
+            {% endif %}
+        </div>
+        {% if calculation.get_elements|length > 0 %}
+            <h4 class="text-center">Химические соединения</h4>
+            <div class="cards-wrapper d-flex flex-column">
+                {% for element in calculation.get_elements %}
+                    <div class="card w-100 mb5">
+                         <div class="row g-0">
+                            <div class="col-md-6 d-flex justify-center">
+                                <img src="{{ element.image.url }}" alt="" />
+                            </div>
+                            <div class="col-md-3 d-flex">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ element.name }}</h5>
+                                    <p class="card-text">Химическая формула: {{ element.formula }} </p>
+                                    <a href="/elements/{{ element.id }}/" class="btn btn-primary" style="width: 100px">
+                                        Открыть
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3 d-flex">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Температура (°C)</label>
+                                        <input disabled type="text" class="form-control" style="width: 250px" value="{{ element.temperature }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Масса (мг)</label>
+                                        <input disabled type="text" class="form-control" style="width: 250px" value="Не рассчитана">
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+             <h4 class="text-center">Элементы еще не добавлены</h4>
+        {% endif %}
+        <form method="post" action="{% url 'delete_calculation' calculation.id %}" class="d-flex justify-content-center">
+            {% csrf_token %}
+            <button class="btn btn-danger delete-draft-calculation-btn" type="submit" style="width: 125px">
+                Удалить
+            </button>
+        </form>
+    </main>
+{% endblock content %}
