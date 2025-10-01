@@ -39,7 +39,7 @@ elements_mock = [
     {
         "id": 6,
         "name": "Хлорид натрия",
-        "description": "Описание",
+        "description": "Хлорид натрия, или хлористый натрий (NaCl), – это натриевая соль соляной кислоты, также известная как поваренная соль. Это белое кристаллическое вещество с характерным соленым вкусом, которое встречается в природе в виде минерала галита (каменная соль) и является основным компонентом морской воды.",
         "formula": "NaCl",
         "image": "http://localhost:9000/images/6.png"
     }
@@ -50,19 +50,19 @@ calculations_mock = [
         "id": 1,
         "status": "Черновик",
         "date_created": "10 сентября 2025г",
-        "field": "123",
+        "volume": "500",
         "elements": [
             {
                 "id": 1,
-                "concentration": 2
+                "temperature": 270
             },
             {
                 "id": 2,
-                "concentration": 4
+                "temperature": 180
             },
             {
                 "id": 3,
-                "concentration": 1
+                "temperature": 350
             }
         ]
     },
@@ -70,15 +70,15 @@ calculations_mock = [
         "id": 2,
         "status": "В работе",
         "date_created": "5 сентября 2025г",
-        "field": "123",
+        "volume": "600",
         "elements": [
             {
                 "id": 1,
-                "concentration": 3
+                "temperature": 200
             },
             {
                 "id": 3,
-                "concentration": 2
+                "temperature": 100
             }
         ]
     },
@@ -86,11 +86,11 @@ calculations_mock = [
         "id": 3,
         "status": "Завершена",
         "date_created": "10 августа 2025г",
-        "field": "123",
+        "volume": "700",
         "elements": [
             {
                 "id": 2,
-                "concentration": 4
+                "temperature": 200
             }
         ]
     }
@@ -155,7 +155,7 @@ def element_page(request, element_id):
 def calculation_page(request, calculation_id):
     calculation = get_calculation(calculation_id)
     elements = [
-        {**get_element(element["id"]), "concentration": element["concentration"]}
+        {**get_element(element["id"]), "temperature": element["temperature"]}
         for element in calculation["elements"]
     ]
 
