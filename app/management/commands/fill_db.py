@@ -96,7 +96,7 @@ def add_forecast(status, elements, owner, moderators):
 
     forecast.owner = owner
 
-    for element in random.sample(list(elements), 3):
+    for element in random.sample(list(elements), random.randint(1, 3)):
         item = ElementForecast(
             forecast=forecast,
             element=element,

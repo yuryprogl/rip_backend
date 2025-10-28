@@ -14,7 +14,7 @@ class ElementSerializer(ElementsSerializer):
         fields = "__all__"
 
 
-class ForecastsSerializer(serializers.ModelSerializer):
+class ForecastBaseSerializer(serializers.ModelSerializer):
     owner = serializers.StringRelatedField(read_only=True)
     moderator = serializers.StringRelatedField(read_only=True)
 
@@ -23,7 +23,15 @@ class ForecastsSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ForecastSerializer(ForecastsSerializer):
+class ForecastsSerializer(ForecastBaseSerializer):
+    elements_count = serializers.SerializerMethodField()
+
+    def get_elements_count(self, forecast):
+        items = ElementForecast.objects.filter(forecast=forecast)
+        return items.count()
+
+
+class ForecastSerializer(ForecastBaseSerializer):
     elements = serializers.SerializerMethodField()
             
     def get_elements(self, forecast):
